@@ -6,24 +6,19 @@
 #
 
 #
-#  Tools --- install these if needed
-#  (You can create your own ~/bin directory and put it on your Unix path) 
-#
-BROWSERIFY = /usr/local/bin/browserify
-
-#
 #  The files we generate at build-time
 # 
-DERIVED = static/css/busy.min.css static/js/busy.min.js
+DERIVED = static/css/busy.min.css
+CSS-CLEAN = (cd static/js; node_modules/clean-css/bin/cleancss)
 
-CSS-CLEAN = static/js/node_modules/clean-css/bin/cleancss 
 
 ##
 ## Default recipe:  Rebuild whatever needs rebuilding.
 ## Note this is the default rule --- 'make' alone is same as 'make all'
 ##
-all:	$(DERIVED)
-
+all:	
+	(cd static/js; make all)
+	make static/css/busy.min.css
 ##
 ## Make a clean start --- rebuild the whole 'dist' directory
 ##
