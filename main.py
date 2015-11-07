@@ -36,7 +36,6 @@ APPLICATION_NAME = 'MeetMe class project'
 #
 #############################
 
-
 @app.route("/")
 @app.route("/index")
 def index():
