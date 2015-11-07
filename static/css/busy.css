@@ -1,0 +1,7 @@
+@import ../js/node_modules/bootstrap/dist/css/bootstrap.min.css;
+@import ../js/node_modules/bootstrap-daterangepicker/daterangepicker.css;
+
+body {
+    background-color: "#ccffcc";
+}
+
