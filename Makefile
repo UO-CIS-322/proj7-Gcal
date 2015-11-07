@@ -8,9 +8,8 @@
 #
 #  The files we generate at build-time
 # 
-DERIVED = static/css/busy.min.css
+DERIVED = static/js/*.min.js
 CSS-CLEAN = (cd static/js; node_modules/clean-css/bin/cleancss)
-
 
 ##
 ## Default recipe:  Rebuild whatever needs rebuilding.
@@ -18,7 +17,7 @@ CSS-CLEAN = (cd static/js; node_modules/clean-css/bin/cleancss)
 ##
 all:	
 	(cd static/js; make all)
-	make static/css/busy.min.css
+
 ##
 ## Make a clean start --- rebuild the whole 'dist' directory
 ##
