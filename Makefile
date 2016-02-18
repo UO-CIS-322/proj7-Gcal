@@ -14,7 +14,7 @@ PYVENV = pyvenv-3.4
 #
 #  The files we generate at build-time
 # 
-DERIVED = static/js/*.min.js
+DERIVED = static/js/*.min.js static/js/node_modules
 #  Can't install properly on shared machine: 
 #  CSS-CLEAN = (cd static/js; node_modules/clean-css/bin/cleancss)
 
@@ -35,6 +35,7 @@ all:
 install:
 	$(PYVENV)  env
 	(.  env/bin/activate; pip install -r requirements.txt)
+	(cd static/js ; npm install)
 
 dist:
 	pip freeze >requirements.txt
@@ -45,7 +46,7 @@ dist:
 ## Make a clean start 
 ##
 clean:	
-	rm -f $(DERIVED)
+	rm -rf $(DERIVED)
 
 ##
 ## Recipes for components 
