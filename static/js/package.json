@@ -1,0 +1,29 @@
+{
+  "name": "busy",
+  "version": "1.0.0",
+  "description": "JavaScript for meeting arranger",
+  "main": "busy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UO-CIS-322/proj6-Gcal.git"
+  },
+  "keywords": [
+    "class"
+  ],
+  "author": "Michal Young",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UO-CIS-322/proj6-Gcal/issues"
+  },
+  "homepage": "https://github.com/UO-CIS-322/proj6-Gcal#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-daterangepicker": "^2.1.17",
+    "browserify": "^13.0.0",
+    "jquery": "^2.2.0",
+    "moment": "^2.11.2"
+  }
+}
