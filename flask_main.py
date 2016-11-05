@@ -238,6 +238,7 @@ def interpret_time( text ):
     time_formats = ["ha", "h:mma",  "h:mm a", "H:mm"]
     try: 
         as_arrow = arrow.get(text, time_formats).replace(tzinfo=tz.tzlocal())
+        as_arrow = as_arrow.replace(year=2016) #HACK see below
         app.logger.debug("Succeeded interpreting time")
     except:
         app.logger.debug("Failed to interpret time")
@@ -245,6 +246,16 @@ def interpret_time( text ):
               .format(text))
         raise
     return as_arrow.isoformat()
+    #HACK #Workaround
+    # isoformat() on raspberry Pi does not work for some dates
+    # far from now.  It will fail with an overflow from time stamp out
+    # of range while checking for daylight savings time.  Workaround is
+    # to force the date-time combination into the year 2016, which seems to
+    # get the timestamp into a reasonable range. This workaround should be
+    # removed when Arrow or Dateutil.tz is fixed.
+    # FIXME: Remove the workaround when arrow is fixed (but only after testing
+    # on raspberry Pi --- failure is likely due to 32-bit integers on that platform)
+
 
 def interpret_date( text ):
     """
