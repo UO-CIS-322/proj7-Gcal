@@ -7,9 +7,6 @@
      href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css"
 />
 
-<link rel="stylesheet" type="text/css"
- href="/static/js/node_modules/bootstrap-daterangepicker/daterangepicker.css"
-/>
 
 <link rel="stylesheet" type="text/css"
     href="/static/css/busy.css"
@@ -20,12 +17,18 @@
      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 
+<!-- Ideally the rest of our javascript dependencies would be
+     bundled and minified with 'browserify', but I've found that
+     it difficult to handle browserify dependencies for class
+     projects.  So, we'll pick up moment and a date range picker
+     from CDNs instead.
+-->
 
-<!-- The rest of our javascript dependencies are bundled and -->
-<!-- 'minified' by 'browserify'  -->
-<script type="text/javascript" 
-   src="/static/js/busy.min.js">
-</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
 
 </head>
 
