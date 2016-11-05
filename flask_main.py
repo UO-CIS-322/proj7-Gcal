@@ -9,7 +9,7 @@ import logging
 
 # Date handling 
 import arrow # Replacement for datetime, based on moment.js
-import datetime # But we still need time
+# import datetime # But we still need time
 from dateutil import tz  # For interpreting local times
 
 
@@ -24,10 +24,17 @@ from apiclient import discovery
 # Globals
 ###
 import CONFIG
+import secrets.admin_secrets  # Per-machine secrets
+import secrets.client_secrets # Per-application secrets
+#  Note to CIS 322 students:  client_secrets is what you turn in.
+#     You need an admin_secrets, but the grader and I don't use yours. 
+#     We use our own admin_secrets file along with your client_secrets
+#     file on our Raspberry Pis. 
+
 app = flask.Flask(__name__)
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = CONFIG.GOOGLE_LICENSE_KEY  ## You'll need this
+CLIENT_SECRET_FILE = secrets.admin_secrets.google_key_file  ## You'll need this
 APPLICATION_NAME = 'MeetMe class project'
 
 #############################
@@ -58,7 +65,7 @@ def choose():
 
     gcal_service = get_gcal_service(credentials)
     app.logger.debug("Returned from get_gcal_service")
-    flask.session['calendars'] = list_calendars(gcal_service)
+    flask.g.calendars = list_calendars(gcal_service)
     return render_template('index.html')
 
 ####
@@ -208,7 +215,7 @@ def init_session_values():
     Note this must be run in app context ... can't call from main. 
     """
     # Default date span = tomorrow to 1 week from now
-    now = arrow.now('local')
+    now = arrow.now('local')     # We really should be using tz from browser
     tomorrow = now.replace(days=+1)
     nextweek = now.replace(days=+7)
     flask.session["begin_date"] = tomorrow.floor('day').isoformat()
@@ -268,9 +275,8 @@ def next_day(isotext):
 def list_calendars(service):
     """
     Given a google 'service' object, return a list of
-    calendars.  Each calendar is represented by a dict, so that
-    it can be stored in the session object and converted to
-    json for cookies. The returned list is sorted to have
+    calendars.  Each calendar is represented by a dict.
+    The returned list is sorted to have
     the primary calendar first, and selected (that is, displayed in
     Google Calendars web app) calendars before unselected calendars.
     """
@@ -345,7 +351,7 @@ def format_arrow_time( time ):
 if __name__ == "__main__":
   # App is created above so that it will
   # exist whether this is 'main' or not
-  # (e.g., if we are running in a CGI script)
+  # (e.g., if we are running under green unicorn)
 
   app.secret_key = str(uuid.uuid4())  
   app.debug=CONFIG.DEBUG

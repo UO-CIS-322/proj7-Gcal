@@ -85,9 +85,9 @@
     shown in each row (but the order is across then down; I would
     prefer down then across). 
     -->
-{% if session.calendars is defined  %}
+{% if g.calendars is defined  %}
   <div class="row">
-  {% for cal in session.calendars if cal.selected %}
+  {% for cal in g.calendars if cal.selected %}
           <div class="col-md-4">
 	   {{ cal.summary }}
           </div>
