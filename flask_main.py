@@ -32,6 +32,9 @@ import secrets.client_secrets # Per-application secrets
 #     file on our Raspberry Pis. 
 
 app = flask.Flask(__name__)
+app.debug=CONFIG.DEBUG
+app.logger.setLevel(logging.DEBUG)
+app.secret_key=CONFIG.secret_key
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = secrets.admin_secrets.google_key_file  ## You'll need this
@@ -363,9 +366,5 @@ if __name__ == "__main__":
   # App is created above so that it will
   # exist whether this is 'main' or not
   # (e.g., if we are running under green unicorn)
-
-  app.secret_key = str(uuid.uuid4())  
-  app.debug=CONFIG.DEBUG
-  app.logger.setLevel(logging.DEBUG)
   app.run(port=CONFIG.PORT,host="0.0.0.0")
     
