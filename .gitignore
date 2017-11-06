@@ -6,7 +6,7 @@ node_modules
 static/js/*.min.js
 .goog_app_key.json
 *~
-
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
