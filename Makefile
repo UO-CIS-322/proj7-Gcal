@@ -4,23 +4,25 @@
 ##############
 #  Virtual environment
 
-env:
-	$(PYVENV)  env
-	($(INVENV) pip install -r requirements.txt )
 
 # Many recipes need to be run in the virtual environment, 
 # so run them as $(INVENV) command
 INVENV = . env/bin/activate ;
 
+install: env
+
+env:
+	python3 -m venv env
+	$(INVENV) pip3 install -r requirements.txt
 
 # 'make run' runs Flask's built-in test server, 
 #  with debugging turned on unless it is unset in CONFIG.py
 # 
 run:	env
-	($(INVENV) python3 flask_main.py) ||  true
+	($(INVENV) cd meetings; python3 flask_main.py) ||  true
 
 test:	env
-	$(INVENV) nosetests
+	$(INVENV) cd meetings; nosetests
 
 
 ##
