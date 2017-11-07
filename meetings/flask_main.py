@@ -23,21 +23,19 @@ from apiclient import discovery
 ###
 # Globals
 ###
-import CONFIG
-import secrets.admin_secrets  # Per-machine secrets
-import secrets.client_secrets # Per-application secrets
-#  Note to CIS 322 students:  client_secrets is what you turn in.
-#     You need an admin_secrets, but the grader and I don't use yours. 
-#     We use our own admin_secrets file along with your client_secrets
-#     file on our Raspberry Pis. 
+import config
+if __name__ == "__main__":
+    CONFIG = config.configuration()
+else:
+    CONFIG = config.configuration(proxied=True)
 
 app = flask.Flask(__name__)
 app.debug=CONFIG.DEBUG
 app.logger.setLevel(logging.DEBUG)
-app.secret_key=CONFIG.secret_key
+app.secret_key=CONFIG.SECRET_KEY
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = secrets.admin_secrets.google_key_file  ## You'll need this
+CLIENT_SECRET_FILE = CONFIG.GOOGLE_KEY_FILE  ## You'll need this
 APPLICATION_NAME = 'MeetMe class project'
 
 #############################
