@@ -14,8 +14,12 @@ obtain information from the Google Calendar service.
 Your application should allow the user to choose calendars (a single
 user may have several Google calendars, one of which is the 'primary'
 calendar) and list 'blocking'  (non-transparent)
-appointments between a start date and an end date
-for some subset of them.
+appointments between a start date and an end date, within a selected
+range of times, 
+for some subset of them.   For example, a user could specify November
+9 through November 15, between 9am and 5pm; the user might then
+specify that their "Work" calendar should be included but their
+"Recreation" calendar should be excluded. 
 
 ## Hints
 
